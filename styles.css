@@ -93,7 +93,8 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#eaf6
 }
 textarea#note {
   width:100%; min-height:80px; resize:none; border: none; outline:none;
-  background:transparent; font-size:14px; color:var(--muted);
+  background:transparent; font-size:16px; color:var(--muted);
+  -webkit-text-size-adjust: 100%;
 }
 .controls { display:flex; gap:8px; align-items:center; }
 button.btn {
@@ -214,10 +215,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, .list-card::-webkit-scrollbar 
 /* inline edit input */
 .inline-edit {
   font: inherit;
-  font-size:14px;
+  font-size:16px;
   color:inherit;
   background:transparent;
   border:none;
   outline:none;
   padding:0;
+  -webkit-text-size-adjust: 100%;
 }
