@@ -177,7 +177,8 @@ function startInlineEdit(id, textEl){
   // replace textEl with input
   textEl.replaceWith(input);
   input.focus();
-  input.setSelectionRange(0, input.value.length);
+  // place caret at the end without selecting text so the I-beam shows
+  try { input.setSelectionRange(input.value.length, input.value.length); } catch(_) { /* ignore */ }
 
   function onDocPointerDown(e){
     if(e.target === input) return; // clicked inside input -> ignore
