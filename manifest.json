@@ -1,20 +1,13 @@
 {
+  "name": "Quix",
   "short_name": "Quix",
-  "name": "Quix — Quick mobile notepad",
   "start_url": ".",
   "display": "standalone",
+  "background_color": "#eaf6ff",
   "theme_color": "#004080",
-  "background_color": "#fafeff",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "icon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "favicon.svg", "type": "image/svg+xml", "sizes": "any" }
   ]
 }
