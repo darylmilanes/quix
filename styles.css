@@ -1,0 +1,223 @@
+/* Basic reset */
+:root{
+  --primary:#004080;
+  --bg:#fafeff;
+  --muted:#474747;
+  --glass-bg: rgba(255,255,255,0.55);
+  --card-radius:16px;
+  --gap:14px;
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#eaf6ff);font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+.app {
+  /* increased top padding to account for fixed sticky-shell height */
+  padding: calc(16px + var(--safe-top) + 250px) 12px calc(20px + var(--safe-bottom));
+  max-width:640px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:var(--gap);
+  min-height:100vh;
+  box-sizing:border-box;
+}
+
+/* iOS liquid glass header */
+.sticky-shell {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:60;
+  border-radius:0;
+  padding: calc(8px + var(--safe-top)) 12px 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(245,250,255,0.44));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 10px 20px rgba(4,24,64,0.08);
+  margin-bottom:0;
+}
+.shell-inner{
+  max-width:640px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.header {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px;
+  border-radius:12px;
+  /* glassmorphism for header */
+  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(250,250,255,0.2));
+  border: 1px solid rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  box-shadow: 0 8px 20px rgba(4,24,64,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+.logo {
+  width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+  border-radius:10px;
+  background: linear-gradient(135deg,var(--primary), #0066b3);
+  color: white; font-weight:700; font-size:16px;
+  box-shadow: 0 6px 12px rgba(0,64,128,0.18), inset 0 -6px 18px rgba(255,255,255,0.04);
+}
+.title {
+  color:var(--primary);
+  font-weight:700;
+  font-size:18px;
+}
+.subtitle { color:var(--muted); font-size:12px; margin-top:2px; }
+
+/* Input card */
+.input-card {
+  /* visually match the header (glassmorphism) */
+  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(250,250,255,0.2));
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: var(--card-radius);
+  padding:12px;
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+  margin-top:0;
+}
+.quill {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+textarea#note {
+  width:100%; min-height:80px; resize:none; border: none; outline:none;
+  background:transparent; font-size:14px; color:var(--muted);
+}
+.controls { display:flex; gap:8px; align-items:center; }
+button.btn {
+  border:none;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:600;
+  background:var(--primary);
+  color:white;
+  box-shadow: 0 8px 18px rgba(0,64,128,0.12);
+  touch-action: manipulation;
+}
+
+/* Card list */
+.list-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,255,255,0.55));
+  border-radius:18px;
+  padding:10px 10px calc(48px + var(--safe-bottom)); /* add bottom gutter */
+  box-shadow: 0 12px 36px rgba(4,24,64,0.06);
+  display:flex; flex-direction:column; gap:8px;
+  min-height:120px;
+}
+.item {
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border-radius:12px;
+  background:transparent;
+  overflow:hidden;
+  -webkit-user-select:none;
+  user-select:none;
+  touch-action: pan-y;
+}
+.radio {
+  width:15px; height:15px; border-radius:50%;
+  border:2px solid var(--primary);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  background: white;
+}
+.radio.checked {
+  background:var(--primary);
+  color:white;
+  display:flex; align-items:center; justify-content:center;
+}
+.text {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.2;
+  word-break:break-word;
+  flex:1;
+}
+.text.done { color:#9a9a9a; text-decoration: line-through; }
+
+/* Delete reveal area (swipe) */
+.item .actions {
+  width:64px;
+  flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  /* position off the normal flow so it's hidden until content slides */
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 160ms ease;
+  z-index:0;
+}
+.item.open .actions {
+  opacity:1;
+  pointer-events:auto;
+}
+.delete-btn {
+  min-width:64px; padding:8px 10px; border-radius:10px;
+  background:#ff3b30; color:white; border:none; font-weight:700;
+  box-shadow:0 6px 12px rgba(255,59,48,0.12);
+}
+
+/* sliding layer */
+.content-wrap {
+  position:relative;
+  width:calc(100% + 64px); /* extend so sliding reveals actions behind */
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition:transform 160ms ease;
+  z-index:1;
+  padding-right:64px; /* create space so content isn't obscured by actions */
+}
+
+/* subtle separators */
+.sep { height:1px; background:linear-gradient(90deg,rgba(0,64,128,0.06), rgba(0,0,0,0)); margin:2px 0 0 0; border-radius:6px; }
+
+/* small screens full-bleed feel */
+@media (max-width:420px){
+  .app{ padding-left:12px;padding-right:12px; }
+  .header{ padding:10px; }
+}
+
+/* hint */
+.hint { font-size:12px; color:#6b6b6b; text-align:center; margin-top:6px; }
+
+/* Hide scrollbars globally */
+html, body {
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE 10+ */
+  -ms-overflow-style: none;
+}
+/* WebKit browsers */
+html::-webkit-scrollbar, body::-webkit-scrollbar, .list-card::-webkit-scrollbar {
+  width: 0px; height: 0px; background: transparent;
+}
+
+/* inline edit input */
+.inline-edit {
+  font: inherit;
+  font-size:14px;
+  color:inherit;
+  background:transparent;
+  border:none;
+  outline:none;
+  padding:0;
+}

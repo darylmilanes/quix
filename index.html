@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Quix — quick mobile notepad</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#004080" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.svg">
+</head>
+<body>
+  <div class="app" id="app" role="application" aria-label="Quix quick notepad">
+    <div class="sticky-shell" role="region" aria-label="Controls">
+      <div class="shell-inner">
+        <div class="header" aria-hidden="false">
+          <div class="logo">
+            <!-- replaced text monogram with accessible inline SVG logo -->
+            <svg width="46" height="46" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle">
+              <title id="logoTitle">Quix logo</title>
+              <defs>
+                <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#004080"/>
+                  <stop offset="1" stop-color="#0066b3"/>
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#g)"/>
+              <g transform="translate(0,0)" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="22" r="8.4" />
+                <path d="M30.5 28.5 L36 34" />
+              </g>
+            </svg>
+          </div>
+          <div>
+            <div class="title">Quix</div>
+            <div class="subtitle">Quick notes</div>
+          </div>
+        </div>
+
+        <div class="input-card" role="region" aria-label="New note">
+          <div class="quill">
+            <textarea id="note" placeholder="Type something…"></textarea>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div class="controls">
+                <button id="store" class="btn" aria-label="Store note">Store</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-card" id="listCard" aria-live="polite" aria-label="Notes list">
+      <!-- items injected here -->
+      <div id="items"></div>
+      <div class="sep"></div>
+    </div>
+
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
